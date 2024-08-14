@@ -132,6 +132,22 @@ Use docker. [Install](https://docs.docker.com/get-docker/) for your platform
 - If you need to start over you will need to delete the folder `$ rm -rf ./data/pg` as this is where all of the server data is stored.
   - if the database `api-dev` was not created then start over.
 - Generate a new migration executing: `npx knex migrate:make [migration-name]`
+
+## start schema and populate seeds
+
+- Install `dependencies`
+```shell
+npm i --save bcrypt bcryptjs jsonwebtoken knex-cleaner 
+```
+
 ```    
 npx knex migrate:make first-migration
 ```  
+
+- run: `npm install` to download all dependencies.
+- run: `cp .env.sample .env` and update the enviornment variables to match your local setup.
+- run: `npm run knex migrate:latest` to create the starting schema.
+- run: `npm run knex seed:run` to populate your db with some data.
+- run: `npm run tests` to confirm all is setup and tests pass.
+- run: `npm run watch:dev` to start nodemon in local dev enviornment.
+- run: `npm start` to start your local development server.
