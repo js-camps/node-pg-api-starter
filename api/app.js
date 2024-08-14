@@ -1,17 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var helmet = require('helmet');
+const createError = require('http-errors');
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const helmet = require('helmet');
 const dotenv = require('dotenv');
 const config_result = dotenv.config();
 if(config_result.error) { throw config_result.error }
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const authRouter = require("../auth/auth-router");
+const usersRouter = require("../api/routes/users");
 
-var app = express();
+const app = express();
 
 app.use(helmet());
 app.use(logger('dev'));
@@ -19,9 +20,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(cors())
+
 // application routes
-app.use('/', indexRouter);
+app.use("/api/auth", authRouter);
 app.use('/users', usersRouter);
+
+app.get('/', (req, res) => {
+  res.send(`<p> Hello, 4g mates! </p>`)
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
