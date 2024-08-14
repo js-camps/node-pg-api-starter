@@ -5,7 +5,7 @@ const server = require("../../api/app.js");
 
 describe('index router endpoints', () =>{
   beforeAll(() => {
-    
+
   });
 
   describe('GET /', () =>{
@@ -20,7 +20,7 @@ describe('index router endpoints', () =>{
       const res = await request(server).get("/ping");
 
       expect(res.status).toBe(404);
-      expect(res.body.error).toMatch(/Route '\/ping' Not found\./);
+      expect(res.body.error).toMatch(/Route '\/ping' Not Found\./);
     })
   });
 });
