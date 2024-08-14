@@ -1,17 +1,19 @@
 # Node API Starter
 
-## setup a basic express server
-
--   install dependencies and `.gitignore`
+-   generate `.gitignore`
 ```sh
 npx gitignore node
 ```
 
+## setup a basic express server
+
+-   install `dependencies`
 ```sh
-npm install --save  express http-errors morgan helmet debug cookie-parser
+npm install --save  express dotenv morgan helmet debug http-errors cookie-parser
 ```
 
-```
+-   install `devDependencies`
+```sh
 npm install --save-dev nodemon cross-env
 ```
 
@@ -23,9 +25,10 @@ npm install --save-dev nodemon cross-env
   },
 ```
 
-- Add Jest to the project
+## setup Jest
 
-```
+-   install `devDependencies` for Jest
+```sh
 npm install --save-dev supertest jest
 ```
 
@@ -38,25 +41,22 @@ npm install --save-dev supertest jest
   },
 ```
 
-## setup a RDBMS
+## setup postgres
 
--   update "start" scripts to the `package.json` file
-```json
-  "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "test": "npx jest --watch",
-    "knex": "npx knex --knexfile config/knexfile.js",
-    "migrate": "npx knex migrate:latest --knexfile config/knexfile.js",
-    "rollback": "npx knex migrate:rollback --knexfile config/knexfile.js",
-    "seed": "npx knex seed:run --knexfile config/knexfile.js",
-    "resetdb": "npm run rollback && npm run migrate && npm run seed"
-  },
-```
+Use docker. [Install](https://docs.docker.com/get-docker/) for your platform
 
-- Install dependencies
+- run: `docker-compose up -d` to start up the postgresql database and pgadmin.
+
+- Open a browser to [pgadmin](http://localhost:5050/) and you should see the Dev server already defined.
+
+- If you need to start over you will need to delete the folder `$ rm -rf ./data/pg` as this is where all of the server data is stored.
+  - if the database `api-dev` was not created then start over.
+
+## initial RDBMS and make first-migration
+
+- Install `dependencies`
 ```
-npm i --save knex pg dotenv 
+npm i --save knex pg 
 ```
 
 - create `config/knexfile.js` with the following config settings.
